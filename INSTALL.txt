@@ -1,0 +1,72 @@
+b64 - Install
+================
+
+Updated:    19th February 2016
+
+
+The following steps are required to install b64:
+ (Please see below if your project uses CMake.)
+
+    1. Download the latest distribution of b64, from
+       http://synesis.com.au/software/b64.html
+
+    2. Unzip it to a directory of your choice, e.g ~/3pty/b64-1.4.2/
+
+    3. Download the latest distribution of STLSoft, from http://stlsoft.org/
+
+    4. Unzip it to a directory of your choice, e.g ~/3pty/stlsoft-1.9.117
+
+    5. Define an environment variable STLSOFT, whose value is the directory
+       in which you unzipped it, e.g. STLSOFT=~/3pty/stlsoft-1.9.117
+
+    6. Open a command shell in the appropriate directory that matches your
+       compiler:
+       
+       * if you're compiling with Visual C++ 7.1 then cd to build/vc71
+       * if you're compiling for UNIX with GCC 4.2, then cd
+         to build/gcc42.unix
+       * if you're compiling for Win-x64 with Visual C++ 9, then cd
+         to build/vc9.x64
+
+    8. Build using make:
+
+       * to build the b64 core libraries: "make build.libs.core"
+       * to build all libraries, examples and test: "make build"
+       * to build and run unit tests: "make test"
+
+NOTE:
+       If you want to build and run the unit tests,
+       you need the xTests framework distribution.
+       Define an environment variable XTESTS_C_ROOT, whose
+       value is the directory in which you unzipped
+       it, e.g. XTESTS_C_ROOT=~/3pty/xtests-0.17.1
+
+NOTE:
+       b64 depends on the (header-only) STLSoft libraries - version
+       1.9.117 or later - available from http://www.stlsoft.org/.
+
+ CMake Users
+ If your project uses CMake (https://cmake.org/) as its build tool,
+ you can install b64 as you would any other CMake project:
+ 1. "cd b64"
+ 2. "mkdir build-cmake && cd build-cmake"
+ 3. "cmake -DCMAKE_INSTALL_PREFIX=<dir_to_install_if_wanted> .."
+    or simply "cmake .." if you want to install it to the default location
+    or you don't want to install it at all.
+ (4. "make install")
+ Installing b64 is not necessary for using it in CMake projects.
+
+ When using b64 in your own project, add these rows to your CMakeLists.txt:
+ find_package( b64 <version> REQUIRED )
+ include_directories( ${b64_INCLUDE_DIRS} )
+
+ If you ran "cmake .." as stated above, then the location of b64 is
+ automatically known to CMake.
+ (Cached in User's home directory; ~/.cmake/packages/b64/ in Unix).
+
+ Exported library target is 'b64::b64'.
+ Use it: "target_link_libraries( <your target> b64::b64 )"
+
+ To compile and run the unit tests: make tests && "make test"
+
+=============================== End of file ================================

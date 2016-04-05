@@ -1,26 +1,30 @@
-cmake_minimum_required(VERSION 2.8)
-project(b64 C CXX)
+cmake_minimum_required( VERSION 2.8 )
+project( b64 C CXX )
 enable_testing()
-set(b64_VERSION 1.4.3)
+set( b64_VERSION 1.4.3 )
 
 # Project include directory (all includes located here)
 include_directories ("${CMAKE_CURRENT_SOURCE_DIR}/include")
 
-find_package(STLSoft 1.9.125 REQUIRED)
-find_package(xTests 0.18.4 QUIET)
+find_package( STLSoft 1.9.125 REQUIRED )
+find_package( xTests 0.18.4 QUIET )
 
-add_subdirectory (src)
+add_subdirectory( src )
 
 # Build examples: "make examples".
-add_subdirectory (examples EXCLUDE_FROM_ALL)
+add_subdirectory( examples EXCLUDE_FROM_ALL )
 # Build tests: "make tests". Execute tests: "make test"
-add_subdirectory (test EXCLUDE_FROM_ALL)
+if( xTests_FOUND )
+  add_subdirectory( test EXCLUDE_FROM_ALL )
+else( xTests_FOUND )
+  message( AUTHOR_WARNING "The xTests framework not found. Cannot build tests." )
+endif()
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
+set( CMAKE_INCLUDE_CURRENT_DIR ON )
+set( CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON )
 
-include(GenerateExportHeader)
-include(CMakePackageConfigHelpers)
+include( GenerateExportHeader )
+include( CMakePackageConfigHelpers )
 
 include_directories (${STLSoft_INCLUDE_DIRS})
 add_library(b64 src/b64.c)
@@ -36,8 +40,7 @@ install( TARGETS b64 EXPORT b64Targets
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin
 )
-install( DIRECTORY
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/xtests"
+install( DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/xtests"
   DESTINATION include
   COMPONENT Devel
 )

@@ -4,7 +4,6 @@ include_directories(
 )
 
 add_executable( test.unit.c.1 test.unit.c.1.c )
-target_link_libraries( test.unit.c.1 b64.core xTests::xTests )
-add_test( test.unit.c.1 ./test.unit.c.1 )
-add_custom_target( tests DEPENDS test.unit.c.1 )
+target_link_libraries( test.unit.c.1 b64 xTests::xTests )
+add_test(NAME test.unit.c.1 COMMAND ./test.unit.c.1 )
 

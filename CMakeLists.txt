@@ -58,6 +58,7 @@ include(GNUInstallDirs)
 # Build
 
 find_package(STLSoft 1.9.125 REQUIRED)
+find_package(xContract QUIET)
 
 # The library
 add_subdirectory(src)

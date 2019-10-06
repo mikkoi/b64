@@ -1,5 +1,9 @@
 add_library(b64 STATIC b64.c)
 target_link_libraries(b64 STLSoft::STLSoft)
+if(xContract_FOUND)
+    target_compile_definitions(b64 PRIVATE B64_USING_XCONTRACT_)
+    target_link_libraries(b64 xContract::xContract)
+endif()
 set_target_properties(b64 PROPERTIES
     OUTPUT_NAME "b64.core"
     PUBLIC_HEADER ${CMAKE_SOURCE_DIR}/include/b64/b64.h)

@@ -82,7 +82,7 @@ endif()
 # #########################################################
 # Export and install the project
 
-set(EXPORT_NAME ${PROJECT_NAME})
+string(TOLOWER ${PROJECT_NAME} EXPORT_NAME)
 
 # Prepare a config and config-version files
 include(CMakePackageConfigHelpers)
@@ -99,20 +99,19 @@ write_basic_package_version_file(
 
 export(EXPORT project-targets
     FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-targets.cmake"
-  NAMESPACE "{$EXPORT_NAME}::"
+    NAMESPACE "${PROJECT_NAME}::"
 )
 
 # Install to GNU type subdirs under CMAKE_INSTALL_PREFIX
 install(EXPORT project-targets
-  NAMESPACE "${EXPORT_NAME}::"
-  FILE "${EXPORT_NAME}-targets.cmake"
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORT_NAME}
+    NAMESPACE "${PROJECT_NAME}::"
+    FILE "${EXPORT_NAME}-targets.cmake"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORT_NAME}
 )
-install(
-  FILES
+install( FILES
     "${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}-config-version.cmake"
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORT_NAME}
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${EXPORT_NAME}
 )
 
 # Store the current build directory in the CMake
@@ -120,69 +119,5 @@ install(
 # This helps dependent projects use a package
 # from the current project’s build tree,
 # i.e. without installing it.
-export(PACKAGE "${EXPORT_NAME}")
+export(PACKAGE "${PROJECT_NAME}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# generate_export_header(b64)
-# set_property(TARGET b64 PROPERTY VERSION ${PROJECT_VERSION})
-# set_property(TARGET b64 PROPERTY INTERFACE_b64_MAJOR_VERSION ${PROJECT_VERSION})
-# set_property(TARGET b64 APPEND PROPERTY
-#   COMPATIBLE_INTERFACE_STRING b64_MAJOR_VERSION
-# )
-#
-# install(TARGETS b64 EXPORT b64Targets
-#   LIBRARY DESTINATION lib
-#   ARCHIVE DESTINATION lib
-#   RUNTIME DESTINATION bin
-# )
-# install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/xtests"
-#   DESTINATION include
-#   COMPONENT Devel
-# )
-#
-# write_basic_package_version_file(
-#   "${CMAKE_CURRENT_BINARY_DIR}/cmake/b64ConfigVersion.cmake"
-#   VERSION ${b64_VERSION}
-#   COMPATIBILITY AnyNewerVersion
-# )
-# export(TARGETS b64
-#   FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/b64Targets.cmake"
-#   NAMESPACE b64::
-# )
-# set(PACKAGE_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
-# configure_file(cmake/b64Config.cmake.in
-#   "${CMAKE_CURRENT_BINARY_DIR}/cmake/b64Config.cmake"
-#   @ONLY
-# )
-# export(PACKAGE b64)
-#
-# set(ConfigPackageLocation cmake/b64)
-# install(EXPORT b64Targets
-#   FILE b64Targets.cmake
-#   NAMESPACE b64::
-#   DESTINATION ${ConfigPackageLocation}
-# )
-# install(FILES
-#     "${CMAKE_CURRENT_BINARY_DIR}/cmake/b64Config.cmake"
-#     "${CMAKE_CURRENT_BINARY_DIR}/cmake/b64ConfigVersion.cmake"
-#   DESTINATION ${ConfigPackageLocation}
-#   COMPONENT Devel
-# )
-#

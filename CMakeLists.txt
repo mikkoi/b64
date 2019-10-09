@@ -57,7 +57,7 @@ include(GNUInstallDirs)
 # #########################################################
 # Build
 
-find_package(STLSoft 1.9.125 REQUIRED)
+find_package(STLSoft 1.10 REQUIRED)
 find_package(xContract QUIET)
 
 # The library
@@ -74,10 +74,10 @@ if(BUILD_TESTING)
 endif()
 
 # Examples
-# add_subdirectory(examples EXCLUDE_FROM_ALL)
-
-# !!!! set(CMAKE_INCLUDE_CURRENT_DIR ON)
-# set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
+option(BUILD_EXAMPLES "Build examples" ON)
+if(BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
 
 # #########################################################
 # Export and install the project

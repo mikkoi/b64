@@ -57,7 +57,7 @@ include(GNUInstallDirs)
 # #########################################################
 # Build
 
-find_package(STLSoft 1.10 REQUIRED)
+find_package(STLSoft 1.9.131 EXACT REQUIRED)
 find_package(xContract QUIET)
 
 # The library

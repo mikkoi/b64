@@ -1,5 +1,5 @@
 add_library(b64 STATIC b64.c)
-target_link_libraries(b64 STLSoft::STLSoft)
+target_link_libraries(b64)
 if(xContract_FOUND)
     target_compile_definitions(b64 PRIVATE B64_USING_XCONTRACT_)
     target_link_libraries(b64 xContract::xContract)
